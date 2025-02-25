@@ -1,11 +1,15 @@
 module.exports = {
     name: "ping",
-    description: "Answers with Pong!",
-    //devonly: bool,
-    //testonly: bool,
-    //options: object[]
+    description: "Shows the bots ping!",
 
-    callback: (client, interaction) => {
-        interaction.reply("Pong!");
+
+    callback: async (client, interaction) => {
+        await interaction.deferReply();
+
+        const reply = await interaction.fetchReply();
+
+        const ping = reply.createdTimestamp - interaction.createdTimestamp;
+        
+        interaction.editReply(`Ping: ${ping}ms`);
     }
 };
