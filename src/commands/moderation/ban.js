@@ -1,4 +1,4 @@
-const  { ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
+const  { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits, GuildMember } = require("discord.js");
 const { callback } = require("../misc/ping");
 
 module.exports = {
@@ -15,14 +15,48 @@ module.exports = {
         },
         {
             name: "reason",
-            description: "reason for banning",
+            description: "Reason for banning",
             required: false,
             type: ApplicationCommandOptionType.String,
         }
     ],
     permissionRequired: [PermissionFlagsBits.BanMembers],
 
-    callback: (client, interaction) => {
-        interaction.reply("banning...")
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Interaction} interaction 
+     */
+
+    callback: async (client, interaction) => {
+        const targetUserId = interaction.options.get("user").value;
+        const reason = interaction.options.get("reason")?.value || "No reason provided";
+
+        await interaction.deferReply();
+
+        const targetUser = interaction.guild.members.fetch(targetUserId);
+
+        if(!targetUser) {
+            await interaction.editReply("That user doesnt exists!");
+            return;
+        };
+
+        if(targetUser.id === interaction.guild.ownerId) {
+            interaction.editReply("You cant ban the owner!");
+            return;
+        };
+
+        const guildMember = targetUser
+
+        try {
+            await interaction.guild.members.ban((await targetUser).id);
+            await interaction.editReply({
+                content: `${(await targetUser).user.displayName} got banned\nReason: ${reason}`,
+                ephemeral: true,
+            });
+        } catch (error) {
+            console.log(`There was an error banning a member! ${error}`);
+        }
+
     }
 }

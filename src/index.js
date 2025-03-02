@@ -1,6 +1,7 @@
 const { Client, IntentsBitField, EmbedBuilder, ChannelType, ActivityType } = require("discord.js");
-const {token} = require("./config.json");
+const {token, database_uri} = require("./config.json");
 const eventHandler = require("./handlers/eventHandler");
+const mongoose = require("mongoose");
 
 const client = new Client({
     intents: [
@@ -12,6 +13,11 @@ const client = new Client({
     ]
 });
 
-eventHandler(client);
+(async() => {
+    await mongoose.connect(database_uri, {});
+    console.log("Connected successfully to database!");
 
-client.login(token);
+    eventHandler(client);
+    client.login(token);
+})();
+
