@@ -25,6 +25,10 @@ const projectData = new Schema({
         type: String,
         default: "",
     },
+    createChannelType: {
+        type: String,
+        default: "hey",
+    },
 });
 
 module.exports = model("ProjectData", projectData);
