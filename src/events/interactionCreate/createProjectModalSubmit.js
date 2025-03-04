@@ -1,4 +1,5 @@
-const {Client, Interaction, ThreadAutoArchiveDuration, MessageFlags, ChannelType} = require("discord.js")
+const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits} = require("discord.js")
+const ProjectData = require("../../models/projectData");
 
 /**
  * 
@@ -9,27 +10,58 @@ const {Client, Interaction, ThreadAutoArchiveDuration, MessageFlags, ChannelType
 module.exports = async (client, interaction) => {
     if (interaction.isModalSubmit) {
         if (interaction.customId === "startHire") {
+            interaction.deferReply();
+
             const name = interaction.fields.getTextInputValue("name");
             const desc = interaction.fields.getTextInputValue("description");
 
-            const projectThread = await interaction.channel.threads.create({
-                name: `Project creation: ${name}`,
-                autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
-                type: ChannelType.GuildPrivateThread,
-                reason: `To create the project called "${name}".`
+            const ownerRole = await interaction.guild.roles.create({
+                name: `${name} - Owner`,
+                color: "#0b8500",
+                reason: `ProjectCreation by ${interaction.user.displayName}`
             });
-            
-            interaction.deferReply();
 
-            setTimeout(async () => {
-                await projectThread.members.add(interaction.user.id);
-                await projectThread.send(`Hey ${interaction.user}, welcome to your thread for the creation of your project!`);
+            const member = await interaction.guild.members.fetch(interaction.user.id);
+            await member.roles.add(ownerRole);
 
-                await interaction.editReply({
-                    content: `A thread for the creation of your project got created. Continue here: ${projectThread}.`,
-                    flags: MessageFlags.Ephemeral
-                });
-            }, 1000)
+            const category = await interaction.guild.channels.create({
+                name: `Project - ${name}`,
+                type: ChannelType.GuildCategory,
+                reason: `Project creation by ${interaction.user.globalName}`,
+            });
+
+            const adminChannel = await interaction.guild.channels.create({
+                name: "Admin channel",
+                type: ChannelType.GuildText,
+                parent: category.id,
+                reason: `Project creation by ${interaction.user.globalName}`,
+                permissionOverwrites: [
+                    {
+                        id: interaction.guild.id,
+                        deny: [PermissionFlagsBits.ViewChannel]
+                    },
+                    {
+                        id: ownerRole.id,
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.UseApplicationCommands],
+                        deny: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator]
+                    }
+                ]
+            });
+
+            await interaction.editReply({
+                content: `A thread for the creation of your project got created. Continue here: .`,
+                flags: MessageFlags.Ephemeral
+            });
+
+            const newProjectData = new ProjectData({
+                projectId: adminChannel.id,
+                categoryId: category.id,
+                ownerId: interaction.user.id,
+                projectName: name,
+                projectDesc: desc,
+            });
+
+            await newProjectData.save();
         };
     };
 };
