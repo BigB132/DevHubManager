@@ -1,5 +1,5 @@
 const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder} = require("discord.js")
-const ProjectData = require("../../models/projectData");
+const ProjectData = require("../../../models/projectData");
 
 /**
  * 

@@ -21,13 +21,46 @@ const projectData = new Schema({
         type: String,
         required: true,
     },
-    channelIds: {
+    ownerRoleId: {
         type: String,
-        default: "",
+        required: true,
+    },
+    channelIds: {
+        type: [String],
+        default: [],
+    },
+    roleIds: {
+        type: [String],
+        default: [],
     },
     createChannelType: {
         type: String,
-        default: "hey",
+        default: "",
+    },
+    //hire
+    hireChannelId: {
+        type: String,
+        default: "0",
+    },
+    hireCurrentMsg: {
+        type: String,
+        default: "0",
+    },
+    jobName: {
+        type: [String],
+        default: [],
+    },
+    jobDesc: {
+        type: [String],
+        default: [],
+    },
+    jobMoney: {
+        type: [Number],
+        default: [],
+    },
+    jobAmount: {
+        type: [Number],
+        default: [],
     },
 });
 

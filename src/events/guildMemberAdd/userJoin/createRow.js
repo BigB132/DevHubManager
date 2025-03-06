@@ -1,5 +1,5 @@
 const {Client, GuildMember} = require("discord.js");
-const UserData = require("../../models/userData")
+const UserData = require("../../../models/userData")
 
 /**
  * 

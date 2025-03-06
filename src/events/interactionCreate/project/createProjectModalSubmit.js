@@ -1,5 +1,5 @@
 const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits} = require("discord.js")
-const ProjectData = require("../../models/projectData");
+const ProjectData = require("../../../models/projectData");
 
 /**
  * 
@@ -18,7 +18,7 @@ module.exports = async (client, interaction) => {
             const ownerRole = await interaction.guild.roles.create({
                 name: `${name} - Owner`,
                 color: "#0b8500",
-                reason: `ProjectCreation by ${interaction.user.displayName}`
+                reason: `Project creation by ${interaction.user.displayName}`
             });
 
             const member = await interaction.guild.members.fetch(interaction.user.id);
@@ -49,7 +49,7 @@ module.exports = async (client, interaction) => {
             });
 
             await interaction.editReply({
-                content: `A thread for the creation of your project got created. Continue here: .`,
+                content: `Your project got created!!!. Continue here: ${adminChannel}`,
                 flags: MessageFlags.Ephemeral
             });
 
@@ -57,6 +57,7 @@ module.exports = async (client, interaction) => {
                 projectId: adminChannel.id,
                 categoryId: category.id,
                 ownerId: interaction.user.id,
+                ownerRoleId: ownerRole.id,
                 projectName: name,
                 projectDesc: desc,
             });

@@ -1,7 +1,7 @@
-const {guild_id} = require("../../config.json");
-const areCommandsDifferent = require("../../utils/areCommandsDifferent");
-const getApplicationCommands = require("../../utils/getApplicationCommands");
-const getLocalCommads = require("../../utils/getLocalCommands");
+const {guild_id} = require("../../../config.json");
+const areCommandsDifferent = require("../../../utils/areCommandsDifferent");
+const getApplicationCommands = require("../../../utils/getApplicationCommands");
+const getLocalCommads = require("../../../utils/getLocalCommands");
 
 module.exports = async (client) => {
     try {

@@ -1,5 +1,5 @@
-const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, Guild} = require("discord.js")
-const ProjectData = require("../../models/projectData");
+const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, Guild, channelLink} = require("discord.js")
+const ProjectData = require("../../../models/projectData");
 
 /**
  * 
@@ -35,6 +35,7 @@ module.exports = async (client, interaction) => {
                     ]
                 });
 
+                projectData.channelIds.push(channel.id);
                 interaction.reply(`Your Text Channel got created. Check it out: ${channel}`)
             };
             await projectData.save();

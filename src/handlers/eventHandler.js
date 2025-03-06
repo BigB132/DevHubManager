@@ -1,21 +1,27 @@
 const path = require("path");
-const getALlFiles = require("../utils/getAllFiles");
 const getAllFiles = require("../utils/getAllFiles");
 
 module.exports = (client) => {
-    const eventFolders = getALlFiles(path.join(__dirname, "..", "events"), true);
+    const eventFolders = getAllFiles(path.join(__dirname, "..", "events"), true);
 
-    for(const eventFolder of eventFolders) {
-        const eventFiles = getAllFiles(eventFolder);
-        eventFiles.sort((a, b) => a > b);
-        
-        const eventName = eventFolder.replace(/\\/g, "/").split("/").pop();
-        
-        client.on(eventName, async (arg) => {
-            for(const eventFile of eventFiles) {
-                const eventFunction = require(eventFile);
-                await eventFunction(client, arg);
-            }
-        })
+    for (const eventFolder of eventFolders) {
+
+        const eventName = path.basename(eventFolder);
+
+        const eventTypeFolders = getAllFiles(eventFolder, true);
+        eventTypeFolders.sort((a, b) => a.localeCompare(b));
+
+        for (const eventTypeFolder of eventTypeFolders) {
+
+            const eventFiles = getAllFiles(eventTypeFolder);
+            eventFiles.sort((a, b) => a.localeCompare(b));
+
+            client.on(eventName, async (...args) => {
+                for (const eventFile of eventFiles) {
+                    const eventFunction = require(eventFile);
+                    await eventFunction(client, ...args);
+                }
+            });
+        }
     }
 };

@@ -1,5 +1,5 @@
 const { Client, Message, EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder } = require("discord.js");
-const ProjectData = require("../../models/projectData");
+const ProjectData = require("../../../models/projectData");
 
 /**
  * 
