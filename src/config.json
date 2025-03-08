@@ -1,7 +1,9 @@
 {
     "database_uri": "mongodb+srv://Builder1607:F6i3jOuVsZVPqBbu@devhub.cmuqv.mongodb.net/?retryWrites=true&w=majority&appName=DevHub",
-    "token": "MTM0MjIyNTAwNDk5NzI0NzA0Ng.GLZP-b.1BmMLcDfsJRYBob3hWjGrA3d6fSi6rRuefuiG0",
+    "token": "MTM0MjIyNTAwNDk5NzI0NzA0Ng.GgnRZU.HaJzAJkIrKRBg3S2xuNTY_bTm6IQ8DX0IfMFd0",
     "guild_id": "1239197586099802163",
     "client_id": "1342225004997247046",
-    "devs": ["1122177378978889841"]
+    "devs": ["1122177378978889841"],
+    "jobModChannelId": "1337737213932212300",
+    "jobChannel": "1346469792638566473"
 }

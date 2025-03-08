@@ -48,7 +48,12 @@ const sendMessage = async (channelId, guild) => {
         .setLabel("Delete Job")
         .setStyle(ButtonStyle.Danger);
     
-    const actionRow = new ActionRowBuilder().addComponents(addJobBtn, editJobBtn, deleteJobBtn);
+    const hireFinish = new ButtonBuilder()
+        .setCustomId("hireFinish")
+        .setLabel("Finish")
+        .setStyle(ButtonStyle.Success);
+
+    const actionRow = new ActionRowBuilder().addComponents(addJobBtn, editJobBtn, deleteJobBtn, hireFinish);
 
     if(projectData.hireCurrentMsg === "0") {
         const message = await channel.send({embeds: [embed], components: [actionRow]});

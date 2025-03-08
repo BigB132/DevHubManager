@@ -23,12 +23,13 @@ module.exports = async (client, interaction) => {
                 return;
             };
         
-            const jobToDelete = interaction.values[0];
-            const index = projectData.jobName.indexOf(jobToDelete);
+            const jobToEdit = interaction.values[0];
+            const index = projectData.jobName.indexOf(jobToEdit);
+            
 
             const modal = new ModalBuilder()
                 .setTitle("Edit Job")
-                .setCustomId("hireEditJobMdl");
+                .setCustomId("hireEditJobMdl_" + jobToEdit);
             
             const name = new TextInputBuilder()
                 .setCustomId("name")
@@ -70,6 +71,9 @@ module.exports = async (client, interaction) => {
             modal.addComponents(row1, row2, row3, row4);
 
             await interaction.showModal(modal);
+
+            projectData.hireCurrentMsg = interaction.message.id;
+            projectData.save();
         };
     };
 };

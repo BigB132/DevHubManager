@@ -1,4 +1,4 @@
-const { Client, IntentsBitField, EmbedBuilder, ChannelType, ActivityType } = require("discord.js");
+const { Client, IntentsBitField } = require("discord.js");
 const {token, database_uri} = require("./config.json");
 const eventHandler = require("./handlers/eventHandler");
 const mongoose = require("mongoose");

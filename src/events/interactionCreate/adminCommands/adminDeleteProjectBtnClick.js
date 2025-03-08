@@ -40,13 +40,16 @@ module.exports = async (client, interaction) => {
                 };
             };
 
+            if(!projectData.hireChannelId === "0") {
+                const hireChannelId = await interaction.guild.channels.fetch(projectData.hireChannelId);
+                hireChannelId.delete();
+            };
+
             const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
-            const hireChannelId = await interaction.guild.channels.fetch(projectData.hireChannelId);
             const category = await interaction.guild.channels.cache.get(projectData.categoryId);
             const adminChannel = await interaction.guild.channels.fetch(projectData.projectId);
 
             ownerRole.delete();
-            hireChannelId.delete();
             category.delete();
             adminChannel.delete();
             
