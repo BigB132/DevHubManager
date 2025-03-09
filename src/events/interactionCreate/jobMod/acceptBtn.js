@@ -39,7 +39,7 @@ module.exports = async (client, interaction) => {
             };
 
             const apply = new ButtonBuilder()
-                .setCustomId("Apply" + projectData.projectId)
+                .setCustomId("apply_" + projectData.projectId)
                 .setLabel("Apply")
                 .setStyle(ButtonStyle.Primary);
 

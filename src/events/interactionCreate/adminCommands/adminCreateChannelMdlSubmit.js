@@ -24,6 +24,7 @@ module.exports = async (client, interaction) => {
         
             const channelName = interaction.fields.getTextInputValue("channelCreationName");
 
+            const memberRole = await interaction.guild.roles.fetch(projectData.roleIds[0]);
             if(projectData.createChannelType === "text"){
                 const channel = await interaction.guild.channels.create({
                     name: channelName,
@@ -32,6 +33,7 @@ module.exports = async (client, interaction) => {
                     permissionOverwrites: [
                         {id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel]},
                         {id: interaction.user.id, allow: [PermissionFlagsBits.Administrator]},
+                        {id: memberRole, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]},
                     ]
                 });
 

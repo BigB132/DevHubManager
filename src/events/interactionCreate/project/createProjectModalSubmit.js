@@ -10,8 +10,6 @@ const ProjectData = require("../../../models/projectData");
 module.exports = async (client, interaction) => {
     if (interaction.isModalSubmit) {
         if (interaction.customId === "startHire") {
-            interaction.deferReply();
-
             const name = interaction.fields.getTextInputValue("name");
             const desc = interaction.fields.getTextInputValue("description");
 
@@ -48,9 +46,9 @@ module.exports = async (client, interaction) => {
                 ]
             });
 
-            await interaction.editReply({
+            await interaction.reply({
                 content: `Your project got created!!!. Continue here: ${adminChannel}`,
-                flags: MessageFlags.Ephemeral
+                flags: MessageFlags.Ephemeral,
             });
 
             const newProjectData = new ProjectData({
@@ -61,6 +59,13 @@ module.exports = async (client, interaction) => {
                 projectName: name,
                 projectDesc: desc,
             });
+
+            const memberRole = await interaction.guild.roles.create({
+                name: `${name} - Member`,
+                color: "#0b8500",
+                reason: `Hire accept by ${interaction.user.displayName}`
+            });
+            newProjectData.roleIds.push(memberRole.id);
 
             await newProjectData.save();
         };
