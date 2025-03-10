@@ -6,6 +6,8 @@ module.exports = {
     //devonly: bool,
     //testonly: bool,
     permissionRequired: [PermissionFlagsBits.ManageMessages],
+    deleted: true,
+
 
     /**
      * 

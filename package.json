@@ -11,6 +11,6 @@
   "description": "",
   "dependencies": {
     "discord.js": "^14.18.0",
-    "mongoose": "^8.11.0"
+    "mongoose": "^8.12.1"
   }
 }

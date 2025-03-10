@@ -1,6 +1,8 @@
 module.exports = {
     name: "ping",
     description: "Shows the bots ping!",
+    deleted: true,
+
 
 
     callback: async (client, interaction) => {

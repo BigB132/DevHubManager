@@ -6,6 +6,8 @@ module.exports = {
     description: "Warns a member.",
     //devonly: bool,
     //testonly: bool,
+    deleted: false,
+
     options: [
         {
             name: "user",
