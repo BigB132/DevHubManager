@@ -1,5 +1,5 @@
 const  { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits, GuildMember, MessageFlags } = require("discord.js");
-const UserData = require("../../models/userData")
+const UserData = require("../../models/userData");
 
 module.exports = {
     name: "warn",
@@ -11,13 +11,13 @@ module.exports = {
     options: [
         {
             name: "user",
-            description: "The user to ban",
+            description: "The user to warn",
             required: true,
             type: ApplicationCommandOptionType.User,
         },
         {
             name: "reason",
-            description: "Reason for banning",
+            description: "Reason for warn",
             required: false,
             type: ApplicationCommandOptionType.String,
         }
@@ -40,6 +40,15 @@ module.exports = {
     
         try {
             const userData = await UserData.findOne(query);
+
+            if(!userData){
+                interaction.reply({
+                    content: "User isnt on the server",
+                    flags: MessageFlags.Ephemeral,
+                });
+                return;
+            };
+            console.log("bana")
             userData.warns += 1;
 
             const targetMember = await interaction.guild.members.fetch(targetUser);
@@ -71,7 +80,7 @@ module.exports = {
                     content: `This was <@${targetUser}>s third warn. He got banned from the server.`,
                     flags: MessageFlags.Ephemeral,
                 });
-
+                await client.users.fetch(targetUser).then(user => user.send(`**You got warned** by ${interaction.user.displayName}. This is your **third warn, and you got **banned** from the server!!!**\n**Reason:** ${reason}.`));
                 await targetMember.ban({reason: reason});
             };
             await userData.save().catch((e) => {

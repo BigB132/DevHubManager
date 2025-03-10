@@ -16,6 +16,7 @@ module.exports = async (client, message) => {
                 .setTitle("Verify")
                 .setDescription("Verify by using the button below!")
                 .setColor(Colors.NotQuiteBlack)
+                .setImage("https://i.ibb.co/99qVfWYS/Unknown.png")
 
             const verifyBtn = new ButtonBuilder()
                 .setCustomId("verify")
