@@ -1,4 +1,4 @@
-const {Client, Interaction, MessageFlags} = require("discord.js");
+const {Client, Interaction, MessageFlags, Message, EmbedBuilder, Colors} = require("discord.js");
 const {memberRole} = require("../../../config.json");
 const UserData = require("../../../models/userData");
 
@@ -34,6 +34,16 @@ module.exports = async (client, interaction) => {
             });
 
             newData.save();
+
+            const embed = new EmbedBuilder()
+                .setTitle(`Welcome to KnowHub!`)
+                .setDescription(`Welcome to KnowHub ${interaction.user}! You should read the rules first.`)
+                .setColor(Colors.Blue);
+
+
+            const welcomeChannel = await interaction.guild.channels.fetch("1348387158787887149");
+
+            welcomeChannel.send({embeds: [embed]});
         };
     };
 };

@@ -19,4 +19,4 @@ module.exports = {
         interaction.channel.bulkDelete(100);
         interaction.reply("Done!");
     }
-}
+};
