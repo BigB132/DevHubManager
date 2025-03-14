@@ -1,4 +1,4 @@
-const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, Guild, channelLink} = require("discord.js")
+const {Client, Interaction, MessageFlags, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, Guild, channelLink} = require("discord.js")
 const ProjectData = require("../../../models/projectData");
 
 /**
@@ -23,23 +23,45 @@ module.exports = async (client, interaction) => {
             };
         
             const channelName = interaction.fields.getTextInputValue("channelCreationName");
+            //get the channel name
 
-            const memberRole = await interaction.guild.roles.fetch(projectData.roleIds[0]);
-            if(projectData.createChannelType === "text"){
-                const channel = await interaction.guild.channels.create({
-                    name: channelName,
-                    parent: projectData.categoryId,
-                    type: ChannelType.GuildText,
-                    permissionOverwrites: [
-                        {id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel]},
-                        {id: interaction.user.id, allow: [PermissionFlagsBits.Administrator]},
-                        {id: memberRole, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]},
-                    ]
-                });
+            var channelType = 0;
 
-                projectData.channelIds.push(channel.id);
-                interaction.reply(`Your Text Channel got created. Check it out: ${channel}`)
+            if(projectData.createChannelType === "text") {
+                channelType = 0;
             };
+
+            if(projectData.createChannelType === "voice") {
+                channelType = 2;
+            };
+
+            if(projectData.createChannelType === "announcement") {
+                channelType = 5;
+            };
+
+            const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
+
+            const channel = await interaction.guild.channels.create({
+                name: channelName,
+                parent: projectData.categoryId,
+                type: channelType,
+                permissionOverwrites: [
+                    {
+                        id: interaction.guild.id,
+                        deny: [PermissionFlagsBits.ViewChannel]
+                    },
+                    {
+                        id: ownerRole.id,
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AddReactions, PermissionFlagsBits.Administrator, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.SendMessages, PermissionFlagsBits.SendPolls, PermissionFlagsBits.CreatePublicThreads],
+                    },
+                ],
+            });
+
+            projectData.channelIds.push(channel.id);
+            interaction.reply({
+                content: `Your Channel got created. Check it out: ${channel}`,
+                flags: 64,
+            });
             await projectData.save();
         };
     };

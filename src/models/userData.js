@@ -12,7 +12,11 @@ const userData = new Schema({
     warns: {
         type: Number,
         default: 0,
-    }
+    },
+    finishedProjects: {
+        type: Number,
+        default: 0,
+    },
 });
 
 module.exports = model("UserData", userData);

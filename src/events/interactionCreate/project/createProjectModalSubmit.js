@@ -40,8 +40,8 @@ module.exports = async (client, interaction) => {
                     },
                     {
                         id: ownerRole.id,
-                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.UseApplicationCommands],
-                        deny: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator]
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.UseApplicationCommands, PermissionFlagsBits.SendMessages],
+                        deny: [PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator]
                     }
                 ]
             });

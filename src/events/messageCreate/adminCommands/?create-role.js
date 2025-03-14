@@ -29,7 +29,7 @@ module.exports = async (client, message) => {
             .setStyle(ButtonStyle.Primary);
 
         const cancelButton = new ButtonBuilder()
-            .setCustomId("createRoleCancel")
+            .setCustomId("adminChannelCancel")
             .setLabel("Cancel")
             .setStyle(ButtonStyle.Danger);
 

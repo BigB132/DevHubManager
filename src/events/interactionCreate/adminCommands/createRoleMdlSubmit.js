@@ -32,7 +32,10 @@ module.exports = async (client, interaction) => {
             });
             
             projectData.roleIds.push(role.id);
-            interaction.reply(`Your role ${role} got created.`)
+            interaction.reply({
+                content: `Your role ${role} got created.`,
+                flags: MessageFlags.Ephemeral,
+            });
 
             await projectData.save();
         };

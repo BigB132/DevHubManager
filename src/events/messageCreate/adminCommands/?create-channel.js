@@ -1,4 +1,4 @@
-const { Client, Message, EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const ProjectData = require("../../../models/projectData");
 
 /**
@@ -31,9 +31,18 @@ module.exports = async (client, message) => {
                 {label: "Announcement Channel", value: "announcement"}
             ]);
 
+        const cancelButton = new ButtonBuilder()
+            .setCustomId("adminChannelCancel")
+            .setLabel("Cancel")
+            .setStyle(ButtonStyle.Danger);
+
         const dropdownRow = new ActionRowBuilder().addComponents(channelTypeDD);
+        const buttonRow = new ActionRowBuilder().addComponents(cancelButton);
         
-        message.channel.send({embeds: [newChannelEmbed], components: [dropdownRow]});
+        message.channel.send({
+            embeds: [newChannelEmbed],
+            components: [dropdownRow, buttonRow],
+        });
     };
     message.delete();
 };

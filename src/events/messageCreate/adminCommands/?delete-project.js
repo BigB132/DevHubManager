@@ -29,7 +29,7 @@ module.exports = async (client, message) => {
             .setStyle(ButtonStyle.Danger)
 
         const declineButton = new ButtonBuilder()
-            .setCustomId("deleteProjectDecline")
+            .setCustomId("adminChannelCancel")
             .setLabel("Cancel")
             .setStyle(ButtonStyle.Success)
 

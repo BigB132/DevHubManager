@@ -23,6 +23,7 @@ module.exports = async (client, interaction) => {
             };
         
             projectData.createChannelType = interaction.values[0];
+            //saves the channel type in the db
         
             const modal = new ModalBuilder()
                 .setCustomId("channelCreationModal")
@@ -38,7 +39,7 @@ module.exports = async (client, interaction) => {
             const firstRow = new ActionRowBuilder().addComponents(channelName);
         
             modal.addComponents(firstRow);
-        
+            await interaction.message.delete();
             interaction.showModal(modal);
             await projectData.save();
         };

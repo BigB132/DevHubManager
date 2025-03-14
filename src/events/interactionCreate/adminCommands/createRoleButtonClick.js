@@ -9,15 +9,6 @@ const ProjectData = require("../../../models/projectData");
 
 module.exports = async (client, interaction) => {
     if(interaction.isButton) {
-        if(interaction.customId === "createRoleCancel") {
-            interaction.message.delete();
-
-            interaction.reply({
-                content: "Canceled successfully",
-                flags: MessageFlags.Ephemeral,
-            });
-        };
-
         if(interaction.customId === "createRoleOpenMdl") {
             const modal = new ModalBuilder()
                 .setCustomId("createRoleMdl")
@@ -33,6 +24,7 @@ module.exports = async (client, interaction) => {
             const actionRow = new ActionRowBuilder().addComponents(textInput);
             modal.addComponents(actionRow);
 
+            await interaction.message.delete();
             interaction.showModal(modal);
         }
     };
