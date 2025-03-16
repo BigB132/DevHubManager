@@ -1,4 +1,4 @@
-const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder} = require("discord.js")
+const {Client, Interaction, MessageFlags, ChannelType, PermissionFlagsBits, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder,StringSelectMenuBuilder} = require("discord.js")
 const ProjectData = require("../../../models/projectData");
 
 /**
@@ -9,7 +9,7 @@ const ProjectData = require("../../../models/projectData");
 
 module.exports = async (client, interaction) => {
     if(interaction.isStringSelectMenu) {
-        if(interaction.customId === "channelCreationType") {
+        if(interaction.customId === "assignRoleToUserDD") {
             const query = {
                 ownerId: interaction.user.id,
                 projectId: interaction.channel.id,

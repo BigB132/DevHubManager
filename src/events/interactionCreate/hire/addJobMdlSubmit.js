@@ -25,8 +25,16 @@ module.exports = async (client, interaction) => {
         
             const name = interaction.fields.getTextInputValue("name");
             const desc = interaction.fields.getTextInputValue("desc");
-            const money = interaction.fields.getTextInputValue("money");
-            const amount = interaction.fields.getTextInputValue("amount");
+            const money = Number(interaction.fields.getTextInputValue("money"));
+            const amount = Number(interaction.fields.getTextInputValue("amount"));
+
+            if(isNaN(money) || isNaN(amount)){
+                interaction.reply({
+                    content: `Please use numbers only as "Money" and "Amount" values`,
+                    flags: MessageFlags.Ephemeral,
+                });
+                return;
+            };
 
             projectData.jobName.push(name);
             projectData.jobDesc.push(desc);

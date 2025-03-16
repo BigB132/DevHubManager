@@ -5,7 +5,7 @@ module.exports = {
     description: "Bulk deletes the last 100 Messages.",
     //devonly: bool,
     //testonly: bool,
-    permissionRequired: [PermissionFlagsBits.ManageMessages],
+    permissionsRequired: [PermissionFlagsBits.Administrator],
 
     /**
      * 

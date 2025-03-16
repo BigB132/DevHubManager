@@ -19,7 +19,7 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         }
     ],
-    permissionRequired: [PermissionFlagsBits.BanMembers],
+    permissionsRequired: [PermissionFlagsBits.BanMembers],
 
     callback: (client, interaction) => {
         interaction.reply("kicking...")

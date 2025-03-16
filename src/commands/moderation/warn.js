@@ -20,7 +20,7 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         }
     ],
-    permissionRequired: [PermissionFlagsBits.BanMembers],
+    permissionsRequired: [PermissionFlagsBits.BanMembers],
 
     /**
      * 

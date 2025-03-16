@@ -62,6 +62,18 @@ const projectData = new Schema({
         type: [Number],
         default: [],
     },
+    gameEngine: {
+        type: Number,
+        default: 0,
+    },
+    memberIds: {
+        type: [Number],
+        default: []
+    },
+    memberJobs: {
+        type: [Number],
+        default: [],
+    }
 });
 
 module.exports = model("ProjectData", projectData);

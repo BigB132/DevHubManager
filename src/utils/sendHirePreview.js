@@ -20,9 +20,15 @@ const sendMessage = async (channelId, guild) => {
     const channel = await guild.channels.fetch(channelId);
 
     const owner = await guild.members.fetch(projectData.ownerId);
+
+    var gameEngine = "Nothing";
+    if(projectData.gameEngine === 1) gameEngine = "Unity";
+    if(projectData.gameEngine === 2) gameEngine = "Unreal Engine 5";
+    if(projectData.gameEngine === 3) gameEngine = "Roblox Studio";
+
     const embed = new EmbedBuilder()
         .setTitle(projectData.projectName)
-        .setDescription(`**Owner:** ${owner}\n**Game Engine:** Unknown\n**Description:** ${projectData.projectDesc}`)
+        .setDescription(`**Owner:** ${owner}\n**Game Engine:** ${gameEngine}\n**Description:** ${projectData.projectDesc}`)
 
         for (let i = 0; i < projectData.jobName.length; i++) {
             embed.addFields({
@@ -52,6 +58,10 @@ const sendMessage = async (channelId, guild) => {
         .setCustomId("hireFinish")
         .setLabel("Finish")
         .setStyle(ButtonStyle.Success);
+
+    if(projectData.jobName.length === 0){
+        hireFinish.setDisabled(true);
+    }
 
     const actionRow = new ActionRowBuilder().addComponents(addJobBtn, editJobBtn, deleteJobBtn, hireFinish);
 

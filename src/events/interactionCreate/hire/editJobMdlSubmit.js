@@ -30,6 +30,15 @@ module.exports = async (client, interaction) => {
             const desc = interaction.fields.getTextInputValue("desc");
             const money = interaction.fields.getTextInputValue("money");
             const amount = interaction.fields.getTextInputValue("amount");
+
+            if(isNaN(money) || isNaN(amount)){
+                await Preview.sendMessage(interaction.channel.id, interaction.guild);
+                interaction.reply({
+                    content: `Please use numbers only as "Money" and "Amount" values`,
+                    flags: MessageFlags.Ephemeral,
+                });
+                return;
+            };
     
             const jobIndex = projectData.jobName.indexOf(oldName);
     

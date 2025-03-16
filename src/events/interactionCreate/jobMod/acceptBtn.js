@@ -24,15 +24,27 @@ module.exports = async (client, interaction) => {
                 interaction.reply("A super rare error is occured!!!");
                 return;
             };
+
+            var gameEngine = "nana"
+
+            if(projectData.gameEngine === 1) gameEngine = "Unity";
+            if(projectData.gameEngine === 2) gameEngine = "Unreal Engine 5";
+            if(projectData.gameEngine === 3) gameEngine = "Roblox Studio";
         
             const owner = await interaction.guild.members.fetch(projectData.ownerId);
             const embed = new EmbedBuilder()
                 .setTitle(projectData.projectName)
-                .setDescription(`**Owner:** ${owner}\n**Game Engine:** Unknown\n**Description:** ${projectData.projectDesc}`)
+                .setDescription(`**Owner:** ${owner}\n**Game Engine:** ${gameEngine}\n**Description:** ${projectData.projectDesc}`)
+
+            const memberCount = {};
+
+            projectData.memberJobs.forEach(num => {
+                memberCount[num] = (memberCount[num] || 0) + 1;
+            });
 
             for (let i = 0; i < projectData.jobName.length; i++) {
                 embed.addFields({
-                    name: `${projectData.jobName[i]} (0/${projectData.jobAmount[i]}) each will get ${projectData.jobMoney[i]} DH Coins`, // Job-Name
+                    name: `${projectData.jobName[i]} (${memberCount[i] || 0}/${projectData.jobAmount[i]}) each will get ${projectData.jobMoney[i]} DH Coins`, // Job-Name
                     value: `**Description:** ${projectData.jobDesc[i]}`,
                     inline: false,
                 });
@@ -55,8 +67,6 @@ module.exports = async (client, interaction) => {
                 content: "Done",
                 flags: MessageFlags.Ephemeral
             });
-
-
         };
     };
 };

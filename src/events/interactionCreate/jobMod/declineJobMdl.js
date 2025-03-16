@@ -1,6 +1,7 @@
 const {Client, Interaction, ChannelType, PermissionFlagsBits, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, Guild, channelLink, MessageFlags} = require("discord.js")
 const ProjectData = require("../../../models/projectData");
-const UserData = require("../../../models/userData")
+const UserData = require("../../../models/userData");
+const Preview = require("../../../utils/sendHirePreview");
 /**
  * 
  * @param {Client} client 
@@ -15,7 +16,7 @@ module.exports = async (client, interaction) => {
             const messageId = interaction.customId.split("_")[2];
 
             const query = {
-            projectId: projectId,
+                projectId: projectId,
             };
             
             const projectData = await ProjectData.findOne(query);
@@ -30,7 +31,7 @@ module.exports = async (client, interaction) => {
     
             const owner = await interaction.guild.members.fetch(projectData.ownerId);
             if(warn === "y") {
-                owner.send(`Your hiring message got **declined**\n**Reason:** ${reason}\nAs this is strictly against the rules you received an **warn**\nPlease edit your message so it fits our rules, and try again!`);
+                owner.send(`Your hiring message got **declined**!!!\n**Reason:** ${reason}\nAs this is strictly against the rules you received an **warn**\nPlease edit your message so it fits our rules, and try again!`);
 
                 const query = {
                     userID: owner.id,
@@ -56,6 +57,9 @@ module.exports = async (client, interaction) => {
             } else {
                 owner.send(`Your hiring message got **declined**\n**Reason:** ${reason}\nPlease edit your message so it fits our rules, and try again!`);
             }
+
+            await Preview.sendMessage(projectData.hireChannelId, interaction.guild);
+
             const message = await interaction.channel.messages.fetch(messageId);
             await message.delete();
 
