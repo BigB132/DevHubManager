@@ -12,7 +12,11 @@ const auditionData = new Schema({
     channelId: {
         type: String,
         required: true,
-    }
+    },
+    jobId: {
+        type: Number,
+        default: 0,
+    },
 });
 
 module.exports = model("AuditionData", auditionData);

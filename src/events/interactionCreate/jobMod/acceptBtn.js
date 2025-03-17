@@ -59,8 +59,11 @@ module.exports = async (client, interaction) => {
 
             const channel = await interaction.guild.channels.fetch(jobChannel);
 
-            channel.send({embeds: [embed], components: [actionRow]});
+            const message = await channel.send({embeds: [embed], components: [actionRow]});
             
+            projectData.hireMessageId = message.id;
+            await projectData.save();
+
             interaction.message.delete();
 
             interaction.reply({

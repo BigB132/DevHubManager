@@ -1,5 +1,7 @@
 const {Client, Interaction, MessageFlags, MessageFlagsBitField} = require("discord.js")
 const ProjectData = require("../../../models/projectData");
+const AuditionData = require("../../../models/projectAuditions");
+const {jobChannel} = require("../../../config.json");
 
 /**
  * 
@@ -45,15 +47,18 @@ module.exports = async (client, interaction) => {
                 hireChannelId.delete();
             };
 
+            const jobChannelFetched = await interaction.guild.channels.fetch(jobChannel);
+            const hireMsg = await jobChannelFetched.messages.fetch(projectData.hireMessageId);
             const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
-            const category = await interaction.guild.channels.cache.get(projectData.categoryId);
+            const category = interaction.guild.channels.cache.get(projectData.categoryId);
             const adminChannel = await interaction.guild.channels.fetch(projectData.projectId);
 
-            ownerRole.delete();
-            category.delete();
-            adminChannel.delete();
+            await hireMsg.delete();
+            await ownerRole.delete();
+            await category.delete();
+            await adminChannel.delete();
             
-
+            await AuditionData.deleteMany({projectId: projectData.projectId});
             await projectData.deleteOne({projectId: projectData.projectId});
         }
     };

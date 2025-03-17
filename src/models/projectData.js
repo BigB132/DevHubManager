@@ -67,13 +67,17 @@ const projectData = new Schema({
         default: 0,
     },
     memberIds: {
-        type: [Number],
+        type: [String],
         default: []
     },
     memberJobs: {
-        type: [Number],
+        type: [String],
         default: [],
-    }
+    },
+    hireMessageId: {
+        type: String,
+        default: "0",
+    },
 });
 
 module.exports = model("ProjectData", projectData);

@@ -38,11 +38,13 @@ module.exports = async (client, interaction) => {
                 return;
             };
 
+            const job = interaction.values[0];
+
             const category = projectData.categoryId;
             const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
 
             const channel = await interaction.guild.channels.create({
-                name: `Audition: ${interaction.user.globalName} as ${interaction.values[0]}`,
+                name: `Audition: ${interaction.user.globalName} as ${projectData.jobName[job]}`,
                 parent: category,
                 type: ChannelType.GuildText,
                 permissionOverwrites: [
@@ -67,12 +69,13 @@ module.exports = async (client, interaction) => {
                 userId: interaction.user.id,
                 projectId: projectData.projectId,
                 channelId: channel.id,
+                jobId: job,
             });
 
             await newAuditionData.save();
 
             const owner = await interaction.guild.members.fetch(projectData.ownerId);
-            channel.send(`${interaction.user} wants to apply as ${interaction.values[0]} ${owner}`)
+            channel.send(`${interaction.user} wants to apply as ${projectData.jobName[job]} ${owner}`)
 
             interaction.reply({
                 content: `The Channel for the audition got created: ${channel}`,

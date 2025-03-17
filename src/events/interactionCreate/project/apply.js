@@ -38,7 +38,7 @@ module.exports = async (client, interaction) => {
             for (let i = 0; i < projectData.jobName.length; i++) {
                 DropDown.addOptions({
                     label: `${projectData.jobName[i]}`, // Job-Name
-                    value: `${projectData.jobName[i]}`,
+                    value: `${i}`,
                 });
             };
 
