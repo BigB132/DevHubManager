@@ -40,6 +40,7 @@ module.exports = async (client, interaction) => {
             };
 
             const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
+            const memberRole = await interaction.guild.roles.fetch(projectData.roleIds[0]);
 
             const channel = await interaction.guild.channels.create({
                 name: channelName,
@@ -54,6 +55,10 @@ module.exports = async (client, interaction) => {
                         id: ownerRole.id,
                         allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AddReactions, PermissionFlagsBits.Administrator, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.SendMessages, PermissionFlagsBits.SendPolls, PermissionFlagsBits.CreatePublicThreads],
                     },
+                    {
+                        id: memberRole.id,
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AddReactions, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.SendMessages, PermissionFlagsBits.SendPolls, PermissionFlagsBits.CreatePublicThreads]
+                    }
                 ],
             });
 

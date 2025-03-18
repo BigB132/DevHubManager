@@ -8,7 +8,7 @@ const ProjectData = require("../../../models/projectData");
  */
 
 module.exports = async (client, message) => {
-    if(message.content === "?delete-project") {
+    if(message.content === "?finish-project") {
         const query = {
             ownerId: message.author.id,
             projectId: message.channel.id,
@@ -19,13 +19,13 @@ module.exports = async (client, message) => {
         if(!projectData) return;
     
         const embed = new EmbedBuilder()
-            .setTitle("Are you sure you want to delete the project?")
-            .setDescription("This will **delete every Channel and Role** associated with the project")
+            .setTitle("Are you sure you want to finish the project?")
+            .setDescription("This will **delete every Channel and Role** associated with the project, and pay the members!")
             .setColor(Colors.Red)
     
         const acceptButton = new ButtonBuilder()
-            .setCustomId("deleteProjectAccept")
-            .setLabel("Yes i want to delete the whole Project")
+            .setCustomId("finishProjectAccept")
+            .setLabel("Yes i want to finish the whole Project")
             .setStyle(ButtonStyle.Danger)
 
         const declineButton = new ButtonBuilder()

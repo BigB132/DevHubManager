@@ -1,4 +1,4 @@
-const  { Client, Interaction,PermissionFlagsBits} = require("discord.js");
+const  { Client, Interaction,PermissionFlagsBits, MessageFlags} = require("discord.js");
 
 module.exports = {
     name: "bulk-delete",
@@ -15,6 +15,9 @@ module.exports = {
 
     callback: async (client, interaction) => {
         interaction.channel.bulkDelete(100);
-        interaction.reply("Done!");
+        interaction.reply({
+            content:"Done!",
+            flags: MessageFlags.Ephemeral,
+        });
     }
 }

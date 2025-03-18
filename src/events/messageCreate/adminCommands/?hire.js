@@ -1,4 +1,4 @@
-const { Client, Message, EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder, Colors, ButtonBuilder, ButtonStyle, InteractionCallback, ThreadAutoArchiveDuration, ChannelType } = require("discord.js");
+const { Client, Message, EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder, Colors, ButtonBuilder, ButtonStyle, InteractionCallback, ThreadAutoArchiveDuration, ChannelType, ActionRow } = require("discord.js");
 const ProjectData = require("../../../models/projectData");
 const Preview = require("../../../utils/sendHirePreview");
 
@@ -19,9 +19,16 @@ module.exports = async (client, message) => {
 
         if(!projectData) return;
 
+        const closeButton = new ButtonBuilder()
+            .setCustomId("cancel")
+            .setLabel("Close")
+            .setStyle(ButtonStyle.Danger);
+
+        const actionRow2 = new ActionRowBuilder().addComponents(closeButton);
+
         try {
             const oldHireChannel = await message.guild.channels.fetch(projectData.hireChannelId);
-            await message.channel.send(`There is already a channel for the generation of the hiring message: ${oldHireChannel}`);
+            await message.channel.send({content: `There is already a channel for the generation of the hiring message: ${oldHireChannel}`, components: [actionRow2]});
             return;
         } catch {};
 
@@ -49,6 +56,6 @@ module.exports = async (client, message) => {
         const actionRow = new ActionRowBuilder().addComponents(button);
 
         await hireChannel.send({embeds: [embed], components: [actionRow]});
-        message.channel.send(`Your channel for the hire-message generation got created: ${hireChannel}`);
+        message.channel.send({content: `Your channel for the hire-message generation got created: ${hireChannel}`, components: [actionRow2]});
     };
 };
