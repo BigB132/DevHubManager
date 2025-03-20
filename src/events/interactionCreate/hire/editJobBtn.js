@@ -11,7 +11,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isButton) {
         if(interaction.customId === "hireEditJob") {
             const query = {
-                ownerId: interaction.user.id,
                 hireChannelId: interaction.channel.id,
             };
 

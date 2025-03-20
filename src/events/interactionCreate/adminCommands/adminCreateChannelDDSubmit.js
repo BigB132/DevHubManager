@@ -11,7 +11,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isStringSelectMenu) {
         if(interaction.customId === "channelCreationType") {
             const query = {
-                ownerId: interaction.user.id,
                 projectId: interaction.channel.id,
             }
         

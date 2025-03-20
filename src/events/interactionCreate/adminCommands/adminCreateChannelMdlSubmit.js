@@ -11,7 +11,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isModalSubmit) {
         if(interaction.customId === "channelCreationModal") {
             const query = {
-                ownerId: interaction.user.id,
                 projectId: interaction.channel.id,
             }
         

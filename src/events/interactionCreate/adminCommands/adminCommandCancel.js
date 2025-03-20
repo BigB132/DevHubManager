@@ -10,11 +10,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isButton) {
         if(interaction.customId === "adminChannelCancel") {
             interaction.message.delete();
-
-            interaction.reply({
-                content: "Canceled successfully",
-                flags: MessageFlags.Ephemeral,
-            });
         };
     }
 };

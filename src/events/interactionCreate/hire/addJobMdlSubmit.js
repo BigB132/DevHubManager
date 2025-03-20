@@ -12,7 +12,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isModalSubmit) {
         if(interaction.customId === "hireAddJobMdl") {
             const query = {
-                ownerId: interaction.user.id,
                 hireChannelId: interaction.channel.id,
             };
         

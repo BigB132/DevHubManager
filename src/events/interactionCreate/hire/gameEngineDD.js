@@ -12,7 +12,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isStringSelectMenu) {
         if(interaction.customId === "hireGameEngineDD") {
             const query = {
-                ownerId: interaction.user.id,
                 hireChannelId: interaction.channel.id,
             };
         

@@ -9,7 +9,6 @@ const ProjectData = require("../../../models/projectData");
 
 module.exports = async (client, message) => {
     const query = {
-        ownerId: message.author.id,
         projectId: message.channel.id,
     };
 
@@ -44,5 +43,4 @@ module.exports = async (client, message) => {
             components: [dropdownRow, buttonRow],
         });
     };
-    message.delete();
 };

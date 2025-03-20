@@ -10,7 +10,6 @@ const ProjectData = require("../../../models/projectData");
 module.exports = async (client, message) => {
     if(message.content === "?finish-project") {
         const query = {
-            ownerId: message.author.id,
             projectId: message.channel.id,
         }
         

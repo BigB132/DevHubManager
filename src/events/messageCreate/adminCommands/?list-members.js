@@ -16,18 +16,28 @@ module.exports = async (client, message) => {
     
     if(!projectData) return;
 
-    if(message.content === "?list-channels") {
+    if(message.content === "?list-members") {
         const embed = new EmbedBuilder()
-            .setTitle("Your Channels");
+            .setTitle("Project Members");
 
-        for (let i = 0; i < projectData.channelIds.length; i++) {
-            const channel = await message.guild.channels.fetch(projectData.channelIds[i]);
+        if(projectData.memberIds.length === 0){
             embed.addFields({
-                name: `${channel.name}`,
-                value: `${channel}`,
+                name: "There are no members in this project",
+                value: "",
                 inline: false,
             });
         };
+
+        for (let i = 0; i < projectData.memberIds.length; i++) {
+            const member = await message.guild.members.fetch(projectData.memberIds[i]);
+            embed.addFields({
+                name: `${member.displayName}`,
+                value: `${member}`,
+                inline: false,
+            });
+        };
+
+        
 
         const cancelButton = new ButtonBuilder()
             .setCustomId("adminChannelCancel")

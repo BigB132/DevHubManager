@@ -13,7 +13,6 @@ module.exports = async (client, interaction) => {
         const customId = interaction.customId.split("_")[0];
         if(customId === "hireEditJobMdl") {
             const query = {
-            ownerId: interaction.user.id,
                 hireChannelId: interaction.channel.id,
             };
             

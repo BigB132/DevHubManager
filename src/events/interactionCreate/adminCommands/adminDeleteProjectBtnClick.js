@@ -14,7 +14,6 @@ module.exports = async (client, interaction) => {
     if(interaction.isButton) {
         if(interaction.customId === "finishProjectAccept") {
             const query = {
-                ownerId: interaction.user.id,
                 projectId: interaction.channel.id,
             };
 

@@ -11,7 +11,6 @@ const Preview = require("../../../utils/sendHirePreview");
 module.exports = async (client, message) => {
     if(message.content === "?hire") {
         const query = {
-            ownerId: message.author.id,
             projectId: message.channel.id,
         };
 

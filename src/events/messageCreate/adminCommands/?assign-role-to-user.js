@@ -9,7 +9,6 @@ const ProjectData = require("../../../models/projectData");
 
 module.exports = async (client, message) => {
     const query = {
-        ownerId: message.author.id,
         projectId: message.channel.id,
     };
 
@@ -23,12 +22,17 @@ module.exports = async (client, message) => {
             .setDescription("Choose a role to assign below!");
 
         const roleDD = new StringSelectMenuBuilder()
-            .setCustomId("assignRoleToUserDD")
+            .setCustomId("assignRTUDD")
             .setPlaceholder("Select a role to assign")
             
+        const button = new ButtonBuilder()
+            .setCustomId("adminChannelCancel")
+            .setLabel("Close")
+            .setStyle(ButtonStyle.Danger);
 
         for (let i = 0; i < projectData.roleIds.length; i++) {
             const role = await message.guild.roles.fetch(projectData.roleIds[i]);
+            if(role.name === `${projectData.projectName} - Member`) continue;
             roleDD.addOptions({
                 label: `${role.name}`,
                 value: `${role.id}`,
@@ -36,7 +40,8 @@ module.exports = async (client, message) => {
         };
 
         const dropdownRow = new ActionRowBuilder().addComponents(roleDD);
-        
+        const buttonRow = new ActionRowBuilder().addComponents(button);    
+    
         message.channel.send({
             embeds: [newChannelEmbed],
             components: [dropdownRow, buttonRow],

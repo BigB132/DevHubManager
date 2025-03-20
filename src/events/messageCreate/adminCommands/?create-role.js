@@ -10,7 +10,6 @@ const ProjectData = require("../../../models/projectData");
 module.exports = async (client, message) => {
     if(message.content === "?create-role") {
         const query = {
-            ownerId: message.author.id,
             projectId: message.channel.id,
         };
 
@@ -34,6 +33,6 @@ module.exports = async (client, message) => {
             .setStyle(ButtonStyle.Danger);
 
         const actionRow = new ActionRowBuilder().addComponents(continueButton, cancelButton);
-        message.channel.send({embeds: [embed], components: [actionRow]});   
+        message.channel.send({embeds: [embed], components: [actionRow]});
     };
 };

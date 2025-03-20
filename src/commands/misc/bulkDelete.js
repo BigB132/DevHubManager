@@ -6,6 +6,7 @@ module.exports = {
     //devonly: bool,
     //testonly: bool,
     permissionsRequired: [PermissionFlagsBits.Administrator],
+    deleted: false,
 
     /**
      * 
