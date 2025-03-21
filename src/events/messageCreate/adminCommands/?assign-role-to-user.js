@@ -47,4 +47,8 @@ module.exports = async (client, message) => {
             components: [dropdownRow, buttonRow],
         });
     };
+
+    if(message.author.bot) return;
+
+    message.delete();
 };

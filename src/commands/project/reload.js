@@ -4,6 +4,7 @@ const Preview = require("../../utils/sendHirePreview")
 module.exports = {
     name: "reload",
     description: "Shut up",
+    deleted: true,
 
 /**
  * 

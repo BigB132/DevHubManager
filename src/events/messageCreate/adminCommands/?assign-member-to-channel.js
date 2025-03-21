@@ -37,5 +37,4 @@ module.exports = async (client, message) => {
 
         await message.channel.send({embeds: [embed], components: [actionRow, actionRow2]});
     }
-    message.delete();
 }

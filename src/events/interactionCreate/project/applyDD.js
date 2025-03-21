@@ -59,7 +59,7 @@ module.exports = async (client, interaction) => {
                     },
                     {
                         id: interaction.user.id,
-                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages],
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory],
                         deny: [PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator, PermissionFlagsBits.UseApplicationCommands]
                     },
                 ],
@@ -75,7 +75,8 @@ module.exports = async (client, interaction) => {
             await newAuditionData.save();
 
             const owner = await interaction.guild.members.fetch(projectData.ownerId);
-            channel.send(`${interaction.user} wants to apply as ${projectData.jobName[job]} ${owner}`)
+            channel.send(`${interaction.user} wants to apply as ${projectData.jobName[job]} ${owner}`);
+            channel.send(`${owner}: Use ?accept or ?decline to accept or decline the user`);
 
             interaction.reply({
                 content: `The Channel for the audition got created: ${channel}`,
