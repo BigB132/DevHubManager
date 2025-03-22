@@ -18,6 +18,7 @@ module.exports = async (client, interaction) => {
             };
 
             const projectData = await ProjectData.findOne(query);
+            
 
             for (let i = 0; i < projectData.memberIds.length; i++) {
                 const memberId = projectData.memberIds[i];
@@ -35,6 +36,14 @@ module.exports = async (client, interaction) => {
                 if(channel) {
                     channel.delete();
                 };
+            };
+
+            const auditionData = await AuditionData.find({projectId: projectData.projectId});
+
+            for(const item of auditionData){
+                const channelId = item.channelId;
+                const channel = await interaction.guild.channels.fetch(channelId);
+                channel.delete();
             };
 
             for(const roleId of projectData.roleIds) {

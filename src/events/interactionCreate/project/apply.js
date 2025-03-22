@@ -20,6 +20,14 @@ module.exports = async (client, interaction) => {
             };
             
             const projectData = await ProjectData.findOne(query);
+
+            if(interaction.user.id === projectData.ownerId){
+                interaction.reply({
+                    content: "You cant apply for your own project!!!",
+                    flags: MessageFlags.Ephemeral,
+                });
+                return;
+            }
     
             if(!projectData) {
                 interaction.reply("A super rare error is occured!!!");
