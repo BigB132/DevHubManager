@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
     
     if(!projectData) return;
 
-    if(message.content === "?assign-role-to-user") {
+    if(message.content === "?assign-member-to-role") {
         const newChannelEmbed = new EmbedBuilder()
             .setTitle("Assign a role to a user")
             .setDescription("Choose a role to assign below!");

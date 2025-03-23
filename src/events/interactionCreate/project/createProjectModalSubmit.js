@@ -26,13 +26,6 @@ module.exports = async (client, interaction) => {
                 name: `Project - ${name}`,
                 type: ChannelType.GuildCategory,
                 reason: `Project creation by ${interaction.user.globalName}`,
-            });
-
-            const adminChannel = await interaction.guild.channels.create({
-                name: "Admin channel",
-                type: ChannelType.GuildText,
-                parent: category.id,
-                reason: `Project creation by ${interaction.user.globalName}`,
                 permissionOverwrites: [
                     {
                         id: interaction.guild.id,
@@ -44,6 +37,13 @@ module.exports = async (client, interaction) => {
                         deny: [PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator]
                     }
                 ]
+            });
+
+            const adminChannel = await interaction.guild.channels.create({
+                name: "Admin channel",
+                type: ChannelType.GuildText,
+                parent: category.id,
+                reason: `Project creation by ${interaction.user.globalName}`,
             });
 
             await interaction.reply({
