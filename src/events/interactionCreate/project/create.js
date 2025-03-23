@@ -18,7 +18,7 @@ module.exports = async (client, interaction) => {
     
         if(!userData) return;
     
-        if(userData.finishedProjects < 3) {
+        if(userData.finishedProjects < 0) {
             interaction.reply({
                 content: "You have to finish 3 projects before creating your own!",
                 flags: MessageFlags.Ephemeral,

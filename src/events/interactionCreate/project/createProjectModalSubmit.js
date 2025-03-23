@@ -40,7 +40,7 @@ module.exports = async (client, interaction) => {
                     },
                     {
                         id: ownerRole.id,
-                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.UseApplicationCommands, PermissionFlagsBits.SendMessages],
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.UseApplicationCommands, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory],
                         deny: [PermissionFlagsBits.SendTTSMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.AddReactions, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.UseExternalStickers, PermissionFlagsBits.CreatePrivateThreads, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.Administrator]
                     }
                 ]
