@@ -28,7 +28,8 @@ module.exports = async (client, interaction) => {
                 });
                 return;
             }
-    
+
+            
             if(!projectData) {
                 interaction.reply("A super rare error is occured!!!");
                 return;

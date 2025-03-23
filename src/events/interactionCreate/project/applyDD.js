@@ -40,6 +40,17 @@ module.exports = async (client, interaction) => {
 
             const job = interaction.values[0];
 
+            const memberCount = {};
+
+            projectData.memberJobs.forEach(num => {
+                memberCount[num] = (memberCount[num] || 0) + 1;
+            });
+
+            if(projectData.jobAmount[job] === memberCount[job]){
+                await interaction.reply({content: "You can't apply to this job, because its already full", flags: MessageFlags.Ephemeral});
+                return;
+            };
+
             const category = projectData.categoryId;
             const ownerRole = await interaction.guild.roles.fetch(projectData.ownerRoleId);
 

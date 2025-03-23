@@ -26,9 +26,11 @@ module.exports = async (client, message) => {
         if(projectData.ownerId !== message.author.id) return;
 
         const user = await message.guild.members.fetch(auditionData.userId);
+
         projectData.memberIds.push(user.id);
         projectData.memberJobs.push(auditionData.jobId);
         await projectData.save();
+        
         const memberRole = await message.guild.roles.fetch(projectData.roleIds[0]);
         await user.roles.add(memberRole);
 
