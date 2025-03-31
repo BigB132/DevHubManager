@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
             userData.count++;
 
             if (userData.count >= 3) {
-                const adminChannel = await message.guild.channels.fetch("1349059390745088082");
+                const adminChannel = await message.guild.channels.fetch("1356036452135211053");
 
                 await adminChannel.send(`${message.author.globalName} is spamming links in ${message.channel.name}`);
 
