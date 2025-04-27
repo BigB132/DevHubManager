@@ -17,6 +17,10 @@ const userData = new Schema({
         type: Number,
         default: 0,
     },
+    claimedDaily: {
+        type: Boolean,
+        default: 0,
+    }
 });
 
 module.exports = model("UserData", userData);
