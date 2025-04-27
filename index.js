@@ -1,7 +1,7 @@
 const { Client, IntentsBitField } = require("discord.js");
-const {token, database_uri} = require("./config.json");
-const eventHandler = require("./handlers/eventHandler");
-const commands = require("./utils/reset-daily");
+const {token, database_uri} = require("./src/config.json");
+const eventHandler = require("./src/handlers/eventHandler");
+const commands = require("./src/utils/reset-daily");
 const mongoose = require("mongoose");
 
 const client = new Client({
